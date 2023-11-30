@@ -65,3 +65,7 @@ Array.from(projects.children).forEach((project) => {
   project.addEventListener("mousemove", moveProject);
   project.addEventListener("mousemove", moveProjectImg.bind(null, project));
 })
+
+document.addEventListener('mousemove', function (e) {
+  gsap.to(preview, { duration: 0.3, left: e.pageX, top: e.pageY });
+});
