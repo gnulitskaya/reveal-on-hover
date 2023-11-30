@@ -15,19 +15,20 @@ const bgPositions = {
 }
 
 const moveStuff = (e) => {
+  // проверка находится ли курсор в контейнере
   const mouseInside = isMouseInsideContainer(e);
-  console.log(isInside);
+  // console.log(isMouseInsideContainer(e));
 
   if(mouseInside !== isInside) {
     isInside = mouseInside;
     if(isInside) {
       gsap.to(preview, 0.3 ,{
         scale: 1,
-      })
+      });
     } else {
       gsap.to(preview, 0.3 ,{
         scale: 0,
-      })
+      });
     }
   }
 }
@@ -45,11 +46,13 @@ const moveProjectImg = (project) => {
   const projectId = project.id;
   gsap.to(previewImg, 0.4, {
     backgroundPosition: bgPositions[projectId] || "0 0",
-  })
+  });
 }
 
 const isMouseInsideContainer = (e) => {
+  // возвращает размер и координаты элемента относительно окна просмотра
   const containerRect = projects.getBoundingClientRect();
+  // console.log(containerRect);
   return (
     e.pageX >= containerRect.left &&
     e.pageX <= containerRect.right &&
@@ -61,11 +64,11 @@ const isMouseInsideContainer = (e) => {
 window.addEventListener("mousemove", moveStuff);
 
 Array.from(projects.children).forEach((project) => {
-  console.log(project);
   project.addEventListener("mousemove", moveProject);
   project.addEventListener("mousemove", moveProjectImg.bind(null, project));
 })
 
+// прикрепить картинку к курсору
 document.addEventListener('mousemove', function (e) {
   gsap.to(preview, { duration: 0.3, left: e.pageX, top: e.pageY });
 });
